@@ -4,7 +4,7 @@ const fs = require('fs');
 const users= {};
 
 http.createServer((req,res) => {
-    if(req.method === 'GET'){
+    if(req.method === 'GET'){ //페이지 로딩
         if(req.url=== '/'){
             return fs.readFile('./restFront.html', (err,data)=>{
                 if(err){
@@ -19,7 +19,7 @@ http.createServer((req,res) => {
                 }
                 res.end(data);
             });
-        } else if(req.url === 'users'){
+        } else if(req.url === '/users'){
             return res.end(JSON.stringify(users));
         }
         return fs.readFile(`.${req.url}`,(err,data)=>{
@@ -29,7 +29,7 @@ http.createServer((req,res) => {
             }
             return res.end(data);
         });
-    } else if( req.method === 'POST') {
+    } else if( req.method === 'POST') { //등록 
         if(req.url === '/users'){
             let body ='';
             req.on('data',(data)=>{
